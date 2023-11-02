@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Academy.Core.Models.BaseModels;
+using System;
 using System.Collections.Generic;
 
 namespace Academy.Core.Repositories
 {
-    public interface IRepository<T>
+    public interface IRepository<T> where T: BaseModel
+
     {
         public Task AddAsync (T entity);
         public Task RemoveAsync(T entity);
