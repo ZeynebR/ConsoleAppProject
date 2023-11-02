@@ -19,10 +19,11 @@ namespace Academy.Service.Services.Implementations
             if (string.IsNullOrWhiteSpace(group))
                 return "Group can not be empty";
             if (average <= 0)
-                return "Average can not be less than 0";
+                return "Average can not be less or equal to 0";
 
             Student student = new Student(fullname, group, average,educationCategory);
-             await _studentRepository.AddAsync(student);
+            student.CreatedAt = DateTime.UtcNow.AddHours(4);
+            await _studentRepository.AddAsync(student);
             return "Created successfully";
 
         }
@@ -47,12 +48,33 @@ namespace Academy.Service.Services.Implementations
 
         public async Task<string> RemoveAsync(string id)
         {
+            Student student = await _studentRepository.GetAsync(x => x.Id == id);
+            if (student == null)
+                return "Student not found ";
             
+          await   _studentRepository.RemoveAsync(student);
+            return "Student removed successfully";
         }
 
-        public Task<string> UpdateAsync(string fullname, string group, double average, EducationCategory educationCategory)
+        public async Task<string> UpdateAsync(string id,string fullname, string group, double average, EducationCategory educationCategory)
         {
-            throw new NotImplementedException();
+            Student student = await _studentRepository.GetAsync(x => x.Id == id);
+            if (student == null)
+                return "Student not found ";
+            if (string.IsNullOrWhiteSpace(fullname))
+                return "Fullname can not be empty";
+            if (string.IsNullOrWhiteSpace(group))
+                return "Group can not be empty";
+            if (average <= 0)
+                return "Average can not be less than 0";
+
+            student.FullName = fullname;    
+            student.Group = group;
+            student.Average = average;
+            student.EducationCategory = educationCategory;  
+            student.UpdatedAt = DateTime.UtcNow.AddHours(4);
+
+            return "Student updated successfully";
         }
     }
 }
