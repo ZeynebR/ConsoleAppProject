@@ -19,8 +19,8 @@ namespace Academy.Service.Services.Implementations
             return "Fullname can not be empty";
             if (string.IsNullOrWhiteSpace(group))
                 return "Group can not be empty";
-            if (average <= 0)
-                return "Average can not be less or equal to 0";
+            if (average <= 0 || average> 100)
+                return "Average should be between 0 and 100";
 
             Student student = new Student(fullname, group, average, educationCategory);
             student.CreatedAt = DateTime.UtcNow.AddHours(4);
@@ -73,8 +73,8 @@ namespace Academy.Service.Services.Implementations
                 return "Fullname can not be empty";
             if (string.IsNullOrWhiteSpace(group))
                 return "Group can not be empty";
-            if (average <= 0)
-                return "Average can not be less than 0";
+            if (average <= 0 || average >100)
+                return "Average should be between 0 and 100";
 
             student.FullName = fullname;
             student.Group = group;
