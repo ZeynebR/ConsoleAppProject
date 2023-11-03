@@ -11,7 +11,7 @@ namespace Academy.Service.Services.Implementations
 
         public async Task RunApp()
         {
-
+            Console.ResetColor();
             await Menu();
             var key = Console.ReadKey();
           
@@ -76,6 +76,7 @@ namespace Academy.Service.Services.Implementations
 
                 if (count >0)
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Please add a valid edication category");
                    
                 }
@@ -151,8 +152,10 @@ namespace Academy.Service.Services.Implementations
 
         async Task Menu()
         {
+
+            Console.ResetColor();
             Console.WriteLine("1. Create a student");
-            Console.WriteLine("2. Update student information");
+            Console.WriteLine("2. Update student's information");
             Console.WriteLine("3. Remove a student");
             Console.WriteLine("4. Get all students");
             Console.WriteLine("5. Get a specific student");
